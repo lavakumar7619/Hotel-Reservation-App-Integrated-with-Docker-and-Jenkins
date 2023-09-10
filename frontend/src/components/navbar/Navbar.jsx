@@ -21,7 +21,7 @@ function BasicExample() {
     const { user ,dispatch} = useContext(AuthContext);
     const navigate = useNavigate()
     const {Handelalert,seterror,open,setopen,error:err}=useErrorDisplay()
-    const { data: profile, loading, reFetch } = useFetch(`http://localhost:5000/user/${user._id}`);
+    const { data: profile, loading, reFetch } = useFetch(`${process.env.REACT_APP_BASE_URL}/user/${user._id}`);
 
     const [data, setdata] = useState({
         username: profile.username,
@@ -70,7 +70,7 @@ function BasicExample() {
                 ...data,
                 img: list[0],
             };
-            fetch(`http://localhost:5000/user/${user._id}`, {
+            fetch(`${process.env.REACT_APP_BASE_URL}/user/${user._id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-type': 'application/json'
@@ -94,7 +94,7 @@ function BasicExample() {
     };
     const handelLogout=async(e)=>{
         try {
-            const loged_out=await axios.get("http://localhost:5000/user/auth/logout")
+            const loged_out=await axios.get(`${process.env.REACT_APP_BASE_URL}/user/auth/logout`)
             console.log(loged_out);
             dispatch({ type: "LOGOUT" });
             navigate("/login")
@@ -113,9 +113,10 @@ function BasicExample() {
                     <Typography variant='h6' component="div" sx={{ flexGrow: 1 }}>
                         Book Karo
                     </Typography>
-                    <Stack direction='row' spacing={2}>   
+                    <Stack direction='row' spacing={2}>  
+                   
                    {/* {user &&  <Button color='inherit' onClick={(e) => navigate('/about')}>About Us</Button>  }                                      */}
-                   <Button color='inherit' onClick={(e) => navigate('/about')}>About Us</Button> 
+                   <Button color='inherit' disabled={user===null} onClick={(e) => navigate('/about')}>About Us</Button> 
                         {user.isAdmin && (
                             <Button color='inherit' onClick={(e) => navigate('/admin/dash')}> DashBoard</Button>
                         ) }

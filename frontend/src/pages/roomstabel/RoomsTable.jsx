@@ -39,13 +39,13 @@ const RoomsTable = () => {
   const [tryy,settryy]=useState("")
 
   const { data, loading, error, reFetch } = useFetch(
-    `http://localhost:5000/hotels/room/${hotelid}`
+    `${process.env.REACT_APP_BASE_URL}/hotels/room/${hotelid}`
   );
   const handelFloorDelete = async (e) => {
     const roomID = e.target.parentElement.parentElement.parentElement.parentElement.dataset.roomid
 
     try {
-      const deleted = await axios.delete(`http://localhost:5000/rooms/${roomID}/${hotelid}`)
+      const deleted = await axios.delete(`${process.env.REACT_APP_BASE_URL}/rooms/${roomID}/${hotelid}`)
       Handelalert(deleted.data)
       reFetch()
     } catch (error) {
@@ -63,7 +63,7 @@ const RoomsTable = () => {
   const submitForm = async (e) => {
     const roomID = e.target.dataset.roomid
     try {
-      const editdRoom = await axios.put(`http://localhost:5000/rooms/${roomID}`, { editForm, value });
+      const editdRoom = await axios.put(`${process.env.REACT_APP_BASE_URL}/rooms/${roomID}`, { editForm, value });
       setShow(false)
 
       reFetch()
@@ -76,7 +76,7 @@ const RoomsTable = () => {
   const handelClean = async (e) => {
     const roomid = e.target.parentElement.parentElement.dataset.roomid
     try {
-      const cleanStatus = await axios.put(`http://localhost:5000/rooms/object/${roomid}`, { isClean: true })
+      const cleanStatus = await axios.put(`${process.env.REACT_APP_BASE_URL}/rooms/object/${roomid}`, { isClean: true })
       reFetch()
       Handelalert(cleanStatus.data)
     } catch (error) {

@@ -13,7 +13,7 @@ const Hotels = () => {
     const [Type, setType] = useState(location.state);
 
     const { data, loading, error } = useFetch(
-        `http://localhost:5000/hotels/getType?type=${Type}`
+        `${process.env.REACT_APP_BASE_URL}/hotels/getType?type=${Type}`
     );
 
     return (

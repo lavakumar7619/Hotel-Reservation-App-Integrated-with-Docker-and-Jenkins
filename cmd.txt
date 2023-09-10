@@ -1,0 +1,38 @@
+env\Scripts\activate       
+deactivate 
+
+basic command
+docker bun/ ild -t your-image-name .
+docker run -d --name your-container-name -p 3000:3000 your-image-name
+
+building docker image
+docker build -t hotel_ease_backend .
+docker build -t hotel_ease_client .
+docker build -t hotel_ease_server . 
+
+
+building container and mapping
+docker run -d --name hotel_ease_backend_c -p 3001:3001 -d --rm -v C:\Users\lavak\Documents\MTech\sem-2\Hotel_Ease\backend:/app -v /app/node_modules hotel_ease_backend
+docker run -d --name hotel_ease_client_c -p 3000:3000 -d hotel_ease_client
+docker run -d --name hotel_ease_server_c -p 3002:3002 -d hotel_ease_server
+
+to see list
+docker ps
+docker ps -a
+
+to stop 
+docker stop image_name
+
+to start 
+docker start image_name
+docker start -i  image_name
+
+to see images
+docker images
+
+to remove images
+docker images rm image_name
+docker images rm image_name -f
+
+
+docker-compose up

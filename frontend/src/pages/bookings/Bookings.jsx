@@ -25,7 +25,7 @@ const stripePublicKey = "pk_test_51JMG5lSIAxlCeZwx3N3jTlrTYzbvQMesUcwJoGGOa4I8pF
 const Bookings = () => {
     const { Handelalert, seterror, open, setopen, error: err } = useErrorDisplay()
     const { user } = useContext(AuthContext);
-    const { data, loading, reFetch } = useFetch(`http://localhost:5000/rooms/user/${user._id}`);
+    const { data, loading, reFetch } = useFetch(`${process.env.REACT_APP_BASE_URL}/rooms/user/${user._id}`);
     const [value, setValue] = React.useState(4);
     // const {data1}=useFetch(`http://localhost:5000/rooms/user/${}`)
     // useEffect(() => {
@@ -33,7 +33,7 @@ const Bookings = () => {
     // })
     const [hnames,sethnames]=useState([])
     const hotel_names=async(e)=>{
-        const get_hotels=await axios.get(`http://localhost:5000/hotels/all`)
+        const get_hotels=await axios.get(`${process.env.REACT_APP_BASE_URL}/hotels/all`)
         sethnames(get_hotels.data)
     }
     hotel_names()
@@ -41,7 +41,7 @@ const Bookings = () => {
         const roomid = e.target.parentElement.dataset.roomid
         console.log(roomid);
         try {
-            const vacated = await axios.put(`http://localhost:5000/rooms/vacate/${roomid}`,{isClean:false,status:true})
+            const vacated = await axios.put(`${process.env.REACT_APP_BASE_URL}/rooms/vacate/${roomid}`,{isClean:false,status:true})
             Handelalert(vacated.data)
             reFetch()
         } catch (error) {
@@ -53,7 +53,7 @@ const Bookings = () => {
         const roomid = e.target.parentElement.dataset.roomid
         console.log(roomid);
         try {
-            const vacated = await axios.put(`http://localhost:5000/rooms/vacate/${roomid}`,{isClean:true,status:false})
+            const vacated = await axios.put(`${process.env.REACT_APP_BASE_URL}/rooms/vacate/${roomid}`,{isClean:true,status:false})
             Handelalert("Room Booking Canceled")
             reFetch()
         } catch (error) {
@@ -63,7 +63,7 @@ const Bookings = () => {
     const showStripe = async(e) => {
         console.log(e); 
         try {
-            const payment = await axios.put(`http://localhost:5000/rooms/payment/${user._id}`,{payment:true,data:e}) 
+            const payment = await axios.put(`${process.env.REACT_APP_BASE_URL}/rooms/payment/${user._id}`,{payment:true,data:e}) 
             Handelalert(payment.data)
             reFetch()
         } catch (error) {

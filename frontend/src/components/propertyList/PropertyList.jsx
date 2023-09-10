@@ -5,7 +5,7 @@ import Card from 'react-bootstrap/Card';
 import CardGroup from 'react-bootstrap/CardGroup'
 
 const PropertyList = () => {
-  const { data, loading, error } = useFetch("http://localhost:5000/hotels/countByType");
+  const { data, loading, error } = useFetch(`${process.env.REACT_APP_BASE_URL}/hotels/countByType`);
   const navigate = useNavigate();
 
 

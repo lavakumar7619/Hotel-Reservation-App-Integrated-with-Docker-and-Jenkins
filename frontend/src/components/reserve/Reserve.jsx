@@ -15,9 +15,10 @@ import Error from "../../utils/Error";
 import useErrorDisplay from "../../hooks/useErrorDisplay";
 import LinearProgress from '@mui/material/LinearProgress';
 const Reserve = ({ setOpen, hotelId,days}) => {
+  
   const {Handelalert,seterror,open,setopen,error:err}=useErrorDisplay()
   const [selectedRooms, setSelectedRooms] = useState([]);
-  const { data, loading, error } = useFetch(`http://localhost:5000/hotels/room/${hotelId}`);
+  const { data, loading, error } = useFetch(`${process.env.REACT_APP_BASE_URL}/hotels/room/${hotelId}`);
   
   const { dates,options } = useContext(SearchContext);
   const getDatesInRange = (startDate, endDate) => {
@@ -60,7 +61,7 @@ const Reserve = ({ setOpen, hotelId,days}) => {
     try {
       const data = await Promise.all(
         selectedRooms.map((roomId) => {
-          const res = axios.put(`http://localhost:5000/rooms/availability/${roomId}`, {
+          const res = axios.put(`${process.env.REACT_APP_BASE_URL}/rooms/availability/${roomId}`, {
             dates: alldates,
             user_id: userid
           })
@@ -126,9 +127,11 @@ const Reserve = ({ setOpen, hotelId,days}) => {
                 </div>
               </div>
             ))}
-            <button onClick={handleClick} className="rButton">
+          {!user.isAdmin &&  
+            <button onClick={handleClick} disabled={user.isAdmin} className="rButton">
               Reserve Now!
             </button>
+          }
           </div>
         </div>
       }

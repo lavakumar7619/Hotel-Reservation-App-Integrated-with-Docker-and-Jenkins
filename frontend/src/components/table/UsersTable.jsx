@@ -23,7 +23,7 @@ const UsersTable =() => {
   const { user:checkUser ,dispatch} = useContext(AuthContext);
   const navigate = useNavigate()
   const { data, loading, error, reFetch } = useFetch(
-    `http://localhost:5000/user/all`
+    `${process.env.REACT_APP_BASE_URL}/user/all`
   );
   
   const [show, setShow] = useState(false);
@@ -33,7 +33,7 @@ const UsersTable =() => {
   const handelChange = async (e) => {
     const personid = e.target.parentElement.id
    if(e.target.name === "delete"){
-    const deleted = await axios.delete(`http://localhost:5000/user/${personid}`,
+    const deleted = await axios.delete(`${process.env.REACT_APP_BASE_URL}/user/${personid}`,
     {
       headers:{
           authorization:sessionStorage.getItem("token")
@@ -57,7 +57,7 @@ const UsersTable =() => {
    if(e.target.name==="admin"){
     try {
       console.log(e.target.getAttribute("data-status"))
-      const modify_admin = await axios.put(`http://localhost:5000/user/admin_access/${personid}`,
+      const modify_admin = await axios.put(`${process.env.REACT_APP_BASE_URL}/user/admin_access/${personid}`,
       {isAdmin:e.target.getAttribute("data-status")},
     {
       headers:{
