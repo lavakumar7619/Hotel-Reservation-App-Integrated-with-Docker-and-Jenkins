@@ -3,7 +3,7 @@ import useFetch from "../../hooks/useFetch";
 import Card from 'react-bootstrap/Card';
 import CardGroup from 'react-bootstrap/CardGroup'
 const FeaturedProperties = () => {
-  const { data, loading, error } = useFetch("http://localhost:5000/hotels/getFeatured?limit=5");
+  const { data, loading, error } = useFetch(`${process.env.REACT_APP_BASE_URL}/hotels/getFeatured?limit=5`);
 
   return (
     <div className="fp">

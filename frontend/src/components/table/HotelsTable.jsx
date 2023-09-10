@@ -25,7 +25,7 @@ import Error from "../../utils/Error";
 const HotelsTable = () => {
   const {Handelalert,seterror,open,setopen,error:err}=useErrorDisplay()
   const { data, loading, error, reFetch } = useFetch(
-    `http://localhost:5000/hotels/all`
+    `${process.env.REACT_APP_BASE_URL}/hotels/all`
 );
   const [show, setShow] = useState(false);
   const [show2, setShow2] = useState(false);
@@ -50,7 +50,7 @@ const HotelsTable = () => {
       setShow(true)
     }
     if (e.target.name === "delete") {
-      const deleted = await axios.delete(`http://localhost:5000/hotels/${hotelid}`,
+      const deleted = await axios.delete(`${process.env.REACT_APP_BASE_URL}/hotels/${hotelid}`,
       {
         headers:{
             authorization:localStorage.getItem("token")
@@ -69,7 +69,7 @@ const HotelsTable = () => {
   }
   //update hotel
   const handelEdit = async(e) => {
-    await axios.put(`http://localhost:5000/hotels/${e.target.id}`,
+    await axios.put(`${process.env.REACT_APP_BASE_URL}/hotels/${e.target.id}`,
     edit,
     {
       headers:{

@@ -12,7 +12,7 @@ import RoomsTable from "../../components/table/RoomsTable";
 import { MDBContainer, MDBCard, MDBCardBody, MDBTextArea } from 'mdb-react-ui-kit';
 import io from "socket.io-client";
 import axios from "axios";
-const socket = io.connect("http://localhost:5000");
+const socket = io.connect(`${process.env.REACT_APP_BASE_URL}`);
 const Home = () => {
     const [notify, setnotify] = useState("")
     const onSubmit = () => {

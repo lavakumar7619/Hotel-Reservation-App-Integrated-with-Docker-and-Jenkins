@@ -10,7 +10,7 @@ import ToastContainer from 'react-bootstrap/ToastContainer';
 import io from "socket.io-client";
 import { useEffect, useState } from "react";
 import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
-const socket = io.connect("http://localhost:5000");
+const socket = io.connect(`${process.env.REACT_APP_BASE_URL}`);
 const Home = () => {
     const coursel = [
         {
@@ -27,34 +27,42 @@ const Home = () => {
         }
     ]
     const [notifyRecived, setnotifyRecived] = useState("")
+    const [currentTime, setCurrentTime] = useState(new Date());
     const [showA, setShowA] = useState(false);
     const toggleShowA = () => setShowA(!showA);
     useEffect(() => {
         socket.on("recive_notification", (data) => {
             setnotifyRecived(data.notification)
             setShowA(true)
+            setCurrentTime(new Date());
         })
     })
-
+    useEffect(() => {
+        const intervalId = setInterval(() => {
+            setShowA(false)
+          }, 10000);
+          return () => clearInterval(intervalId);
+      }, []);
+    const formattedTime = currentTime.toLocaleTimeString();
     return (
         <div>
             <Navbar />
             <ToastContainer position="top-end" className="p-3">
-                <Toast 
-                onClose={toggleShowA} 
-                show={showA} 
-                bg="secondary" >
+                <Toast
+                    onClose={toggleShowA}
+                    show={showA}
+                    bg="secondary" >
                     <Toast.Header >
                         <NotificationsNoneOutlinedIcon />
                         <strong className="me-auto">Book-Karo</strong>
-                        <small className="text-muted">just now</small>
+                        <small className="text-muted">{formattedTime}</small>
                     </Toast.Header>
                     <Toast.Body>{notifyRecived}</Toast.Body>
                 </Toast>
             </ToastContainer>
             <Header />
             <div>
-            {coursel.map((img) => {                     
+                {coursel.map((img) => {
                     <Carousel>
                         <Carousel.Item>
                             <img
@@ -74,7 +82,7 @@ const Home = () => {
                 <Featured />
                 <h1 className="homeTitle">Browse by property type</h1>
                 <PropertyList />
-                
+
             </div>
         </div>
     );

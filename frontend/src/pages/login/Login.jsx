@@ -24,7 +24,7 @@ import Error from "../../utils/Error";
 const Login = () => {
   const { Handelalert, seterror, open, setopen, error: err } = useErrorDisplay()
   const [OTP, setOTP] = useState("");
-  const [key, setKey] = useState('OTP');
+  const [key, setKey] = useState('password');
   const [PhoneNumber, setPhoneNumber] = useState(0)
   const [loadSend, setloadSend] = useState(false)
   const [credentials, setCredentials] = useState({
@@ -32,7 +32,7 @@ const Login = () => {
     password: "",
   });
 
-  const { loading, error, dispatch } = useContext(AuthContext);
+  const { loading, error, dispatch,user } = useContext(AuthContext);
   const navigate = useNavigate()
 
   const handleChange = (e) => {
@@ -55,7 +55,7 @@ const Login = () => {
     dispatch({ type: "LOGIN_START" });
 
     try {
-      const res = await axios.post("http://localhost:5000/user/auth/login", credentials);
+      const res = await axios.post(`${process.env.REACT_APP_BASE_URL}/user/auth/login`, credentials);
       //const cookie=await axios.get("http://localhost:5000/setCookies")
       dispatch({ type: "LOGIN_SUCCESS", payload: res.data.details,token:res.data.token });
       Handelalert("Succesful Login")
@@ -102,7 +102,7 @@ const Login = () => {
 
     if(data.password.length <=4) return alert("password length should be min 5")
     try {
-      fetch('http://localhost:5000/user/auth/register', {
+      fetch(`${process.env.REACT_APP_BASE_URL}/user/auth/register`, {
         method: 'POST',
         headers: {
           'Content-type': 'application/json'
@@ -125,7 +125,7 @@ const Login = () => {
   const handleSendOTP = async (e) => {
     try {
       if (PhoneNumber.length !=10) return Handelalert("Enter valid Phone number")
-      const SendOTP = await axios.post(`http://localhost:5000/user/auth/sendOTP`, { PhoneNumber: PhoneNumber })
+      const SendOTP = await axios.post(`${process.env.REACT_APP_BASE_URL}/user/auth/sendOTP`, { PhoneNumber: PhoneNumber })
       console.log(SendOTP.data);
       Handelalert(SendOTP.data);
       setloadSend(true)
@@ -142,7 +142,7 @@ const Login = () => {
       return
     }
     try {
-      const verifyOTP = await axios.post(`http://localhost:5000/user/auth/verifyOTP`, { OTP: OTP })
+      const verifyOTP = await axios.post(`${process.env.REACT_APP_BASE_URL}/user/auth/verifyOTP`, { OTP: OTP })
       if (verifyOTP.data === "Wrong OTP") {
         setOTP("")
         setloadSend(false)
@@ -169,7 +169,7 @@ const Login = () => {
                         Book Karo
                     </Typography>
                     <Stack direction='row' spacing={2}>   
-                    <Button color='inherit' onClick={(e) => navigate('/about')}>About Us</Button>                                       
+                    <Button color='inherit' disabled={user===null} onClick={(e) => navigate('/about')}>About Us</Button>                                       
                     </Stack>
                 </Toolbar>
             </AppBar>

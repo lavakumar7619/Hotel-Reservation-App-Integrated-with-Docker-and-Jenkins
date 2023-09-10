@@ -4,7 +4,7 @@
   "description": "web lab project -booking of room in hotels",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "nodemon -L index.js"
   },
   "author": "Lava_Kumar",
   "license": "ISC",

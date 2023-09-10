@@ -45,7 +45,7 @@ const NewHotel = () => {
                 ...info,
                 photos: list,
             };
-           await axios.post("http://localhost:5000/hotels", 
+           await axios.post(`${process.env.REACT_APP_BASE_URL}/hotels`, 
            newhotel,
            {
             headers:{

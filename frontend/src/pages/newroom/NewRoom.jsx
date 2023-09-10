@@ -17,7 +17,7 @@ const NewRoom = () => {
     const [h_name, seth_name] = useState("")
     const hotel_name=async()=>{
        try {
-        const Hotel_Name=await axios.get(`http://localhost:5000/hotels/find/${hotelid}`)
+        const Hotel_Name=await axios.get(`${process.env.REACT_APP_BASE_URL}/hotels/find/${hotelid}`)
         seth_name(Hotel_Name.data.name)
        } catch (error) {
         seth_name("")
@@ -45,7 +45,7 @@ const NewRoom = () => {
             }
         }
         try {
-            await axios.post(`http://localhost:5000/rooms/${hotelid}`, 
+            await axios.post(`${process.env.REACT_APP_BASE_URL}/rooms/${hotelid}`, 
             newRoom,
             {
                 headers:{

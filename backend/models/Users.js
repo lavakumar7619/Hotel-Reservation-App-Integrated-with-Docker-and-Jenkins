@@ -37,6 +37,16 @@ const UserSchema = new mongoose.Schema(
         rooms:{
             type:[String],
         },
+        bookedRooms: [{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Room',
+            required:false
+        }],
+        bookingHistory: [{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Room',
+            required:false
+        }]
     },
     { timestamps: true }
 );
