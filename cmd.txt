@@ -2,7 +2,7 @@ env\Scripts\activate
 deactivate 
 
 basic command
-docker bun/ ild -t your-image-name .
+docker build -t your-image-name .
 docker run -d --name your-container-name -p 3000:3000 your-image-name
 
 building docker image
