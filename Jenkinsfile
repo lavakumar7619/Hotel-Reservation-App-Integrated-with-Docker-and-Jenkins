@@ -244,7 +244,7 @@ pipeline {
 
     environment {
         DOCKERHUB_CREDENTIALS = credentials('docker_login')
-        DOCKERHUB_REPO = 'lavakumar7619/hotel_ease'
+        DOCKERHUB_REPO = 'lavakumar7619/book_ease'
         BACKEND_IMAGE_TAG = "backend-${BUILD_NUMBER}"
         FRONTEND_IMAGE_TAG = "frontend-${BUILD_NUMBER}"
         BACKEND_CONTAINER_NAME = "backend-${BUILD_NUMBER}-c"
@@ -300,10 +300,10 @@ pipeline {
                     // Pull and run the backend image with a custom container name
                     sh "docker pull ${DOCKERHUB_REPO}:${BACKEND_IMAGE_TAG}"
                     //sh "docker pull ${DOCKERHUB_REPO}:${FRONTEND_IMAGE_TAG}"
-                    sh "docker pull lavakumar7619/hotel_ease:book_ease_frontend"
+                    sh "docker pull lavakumar7619/book_ease:book_ease_frontend"
                     sh "docker run -d -p 5000:5000 --name ${BACKEND_CONTAINER_NAME} ${DOCKERHUB_REPO}:${BACKEND_IMAGE_TAG}"
                     //sh "docker run -d -p 3000:3000 --name ${FRONTEND_CONTAINER_NAME} ${DOCKERHUB_REPO}:${FRONTEND_IMAGE_TAG}"
-                    sh "docker run -d -p 3000:3000 --name ${FRONTEND_CONTAINER_NAME} lavakumar7619/hotel_ease:book_ease_frontend"
+                    sh "docker run -d -p 3000:3000 --name ${FRONTEND_CONTAINER_NAME} lavakumar7619/book_ease:book_ease_frontend"
                 }
             }
         }
