@@ -1,46 +1,46 @@
-# FROM node:14
+FROM node:14
 
-# RUN npm install -g nodemon
+RUN npm install -g nodemon
 
-# WORKDIR /app
+WORKDIR /app
 
-# COPY package*.json ./
+COPY package*.json ./
 
-# RUN npm install 
+RUN npm install 
 
-# COPY . .
+COPY . .
 
-# EXPOSE 5000
+EXPOSE 5000
 
 
-# CMD ["npm", "start"]
+CMD ["npm", "start"]
 # #
 
 
-# Use an official Node runtime as a base image
-FROM node:14-slim
+# # Use an official Node runtime as a base image
+# FROM node:14-slim
 
-# Set the working directory in the container to /app
-WORKDIR /app
+# # Set the working directory in the container to /app
+# WORKDIR /app
 
-# Copy package.json and package-lock.json before other files
-# Utilize Docker cache to save re-installing dependencies if unchanged
-COPY package*.json ./
+# # Copy package.json and package-lock.json before other files
+# # Utilize Docker cache to save re-installing dependencies if unchanged
+# COPY package*.json ./
 
-# Install dependencies
-RUN npm install
+# # Install dependencies
+# RUN npm install
 
-# Copy the current directory contents into the container at /app
-COPY . .
+# # Copy the current directory contents into the container at /app
+# COPY . .
 
-# Build the app
-# RUN npm run build
+# # Build the app
+# # RUN npm run build
 
-# Install global serve tool to serve your React app
-RUN npm install -g serve
+# # Install global serve tool to serve your React app
+# RUN npm install -g serve
 
-# Make port 3000 available outside of the image
-EXPOSE 3000
+# # Make port 3000 available outside of the image
+# EXPOSE 5000
 
-# Run the app when the container launches
-CMD ["npm", "start"]
+# # Run the app when the container launches
+# CMD ["npm", "start"]
