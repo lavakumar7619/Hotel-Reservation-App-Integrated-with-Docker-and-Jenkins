@@ -20,10 +20,10 @@ WORKDIR /app
 
 # Copy package.json and package-lock.json before other files
 # Utilize Docker cache to save re-installing dependencies if unchanged
-COPY package*.json ./
+# COPY package*.json ./
 
-# Install dependencies
-RUN npm install
+# # Install dependencies
+# RUN npm install
 
 # Copy the current directory contents into the container at /app
 COPY . .
