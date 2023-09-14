@@ -277,20 +277,20 @@ pipeline {
                 }
             }
         }
-        // stage('Build and Push frontend Docker Image') {
-        //     steps {
-        //         script {
-        //             // Build frontend image
-        //             dir('frontend') {
-        //                 sh "docker build -t ${DOCKERHUB_REPO}:${FRONTEND_IMAGE_TAG} ."
-        //             }
+        stage('Build and Push frontend Docker Image') {
+            steps {
+                script {
+                    // Build frontend image
+                    dir('frontend') {
+                        sh "docker build -t ${DOCKERHUB_REPO}:${FRONTEND_IMAGE_TAG} ."
+                    }
                     
-        //             // Authenticate and push the FRONTEND image
-        //             sh "echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin"
-        //             sh "docker push ${DOCKERHUB_REPO}:${FRONTEND_IMAGE_TAG}"   
-        //         }
-        //     }
-        // }
+                    // Authenticate and push the FRONTEND image
+                    sh "echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin"
+                    sh "docker push ${DOCKERHUB_REPO}:${FRONTEND_IMAGE_TAG}"   
+                }
+            }
+        }
         stage('Pull and Run Backend AND FRONTEND Image') {
             steps {
                 script {
@@ -299,11 +299,11 @@ pipeline {
                     
                     // Pull and run the backend image with a custom container name
                     sh "docker pull ${DOCKERHUB_REPO}:${BACKEND_IMAGE_TAG}"
-                    //sh "docker pull ${DOCKERHUB_REPO}:${FRONTEND_IMAGE_TAG}"
-                    sh "docker pull lavakumar7619/book_ease:book_ease_frontend"
+                    sh "docker pull ${DOCKERHUB_REPO}:${FRONTEND_IMAGE_TAG}"
+                    //sh "docker pull lavakumar7619/book_ease:book_ease_frontend"
                     sh "docker run -d -p 5000:5000 --name ${BACKEND_CONTAINER_NAME} ${DOCKERHUB_REPO}:${BACKEND_IMAGE_TAG}"
-                    //sh "docker run -d -p 3000:3000 --name ${FRONTEND_CONTAINER_NAME} ${DOCKERHUB_REPO}:${FRONTEND_IMAGE_TAG}"
-                    sh "docker run -d -p 3000:3000 --name ${FRONTEND_CONTAINER_NAME} lavakumar7619/book_ease:book_ease_frontend"
+                    sh "docker run -d -p 3000:3000 --name ${FRONTEND_CONTAINER_NAME} ${DOCKERHUB_REPO}:${FRONTEND_IMAGE_TAG}"
+                    //sh "docker run -d -p 3000:3000 --name ${FRONTEND_CONTAINER_NAME} lavakumar7619/book_ease:book_ease_frontend"
                 }
             }
         }
