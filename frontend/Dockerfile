@@ -29,13 +29,14 @@ WORKDIR /app
 COPY . .
 
 # Build the app
-RUN npm run build
+# RUN npm run build
 
 # Install global serve tool to serve your React app
-RUN npm install -g serve
+# RUN npm install -g serve
 
 # Make port 3000 available outside of the image
 EXPOSE 3000
 
 # Run the app when the container launches
-CMD ["serve", "-s", "build", "-l", "3000"]
+# CMD ["serve", "-s", "build", "-l", "3000"]
+CMD ["npm", "start"]
