@@ -14,6 +14,7 @@ import Bookings from "./pages/bookings/Bookings"
 import Error from "./pages/errorpage/Error";
 import About from "./pages/about/About"
 function App() {
+  console.log(process.env.REACT_APP_BASE_URL);
  // const { user } = useContext(AuthContext);
   const ProtectedRoute = ({ children }) => {
     const { user,token } = useContext(AuthContext);

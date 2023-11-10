@@ -36,3 +36,10 @@ docker images rm image_name -f
 
 
 docker-compose up
+
+
+docker build -t lavakumar7619/hotel_ease:backend .
+docker run --name backend_c -p 5000:5000 lavakumar7619/hotel_ease:backend
+
+docker build -t lavakumar7619/hotel_ease:frontend .
+docker run --name frontend_c -p 3000:3000 lavakumar7619/hotel_ease:frontend

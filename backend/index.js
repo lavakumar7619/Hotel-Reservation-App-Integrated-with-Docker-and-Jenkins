@@ -48,6 +48,9 @@ app.use(express.static(path.join(__dirname, '../frontend/src')));
 app.use(cookieParser())
 app.use(cors())
 
+app.get("/",(req,res)=>{
+    res.send("backend running")
+})
 //multer
 const storage = multer.diskStorage({
     destination: './public/images/',
