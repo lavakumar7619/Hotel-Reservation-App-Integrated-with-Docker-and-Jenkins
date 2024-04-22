@@ -90,6 +90,9 @@ app.use("/user/auth", authRoute);
 app.use("/hotels", hotelsRoute);
 app.use("/rooms", roomsRoute);
 
+app.get("/check",(req,res)=>{
+    res.send("hiiii")
+})
 
 
 // app.get("/getCookies",(req,res)=>{
